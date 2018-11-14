@@ -6,13 +6,13 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 14:44:48 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/11/14 15:37:15 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2018/11/14 15:53:12 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-# define ECART 9
+# define ECART 5
 # include "../libft/includes/libft.h"
 #include <fcntl.h>
 #include "../GNL/get_next_line.h"

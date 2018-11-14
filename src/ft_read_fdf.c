@@ -6,14 +6,14 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 16:39:58 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/11/14 15:40:56 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2018/11/14 15:53:28 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 #include <math.h>
-# define DEPARTY 250
-# define DEPARTX DEPARTY + 1500
+# define DEPARTY 175
+# define DEPARTX DEPARTY + 250
 
 void		init_point(t_coord *point)
 {
@@ -29,8 +29,8 @@ void      set_point(t_coord *current, t_line *lst_map, t_window window)
 	while (i < lst_map->size)
 	{
 		lst_map->point[i].alt = ft_atoi(lst_map->tab[i]);
-		lst_map->point[i].x = current->x - (lst_map->point[i].alt * cos(0.74)) - current->y * 1.5 * sin(1.7);
-		lst_map->point[i].y = current->y - (lst_map->point[i].alt * sin(0.74)) - current->x / 2  * cos(1.7);
+		lst_map->point[i].x = current->x - (lst_map->point[i].alt * cos(0.74)) - current->y * sin(1.75);
+		lst_map->point[i].y = current->y - (lst_map->point[i].alt * sin(0.74)) - current->x * cos(1.75);
 		if (lst_map->point[i].alt > 0)
 			mlx_pixel_put(window.mlx_ptr, window.win_ptr, lst_map->point[i].x, lst_map->point[i].y, 7667971);
 		else
@@ -70,7 +70,7 @@ t_line    *init_map(t_window window)
 	int			fd;
 	t_line		*tmp;
 
-	fd = open("100-6.fdf", O_RDONLY);
+	fd = open("mars.fdf", O_RDONLY);
 	init_point(&current);
 	lst_map = (t_line*)malloc(sizeof(t_line));
 	begin_lst = lst_map;
