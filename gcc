@@ -1,0 +1,1 @@
+gcc -I ../minilibx_macos -L ../minilibx_macos ../libft/libft.a ../GNL/get_next_line.c -framework OpenGL fdf.c ft_draw.c ft_read_fdf.c -framework OpenGL -framework AppKit -lmlx
