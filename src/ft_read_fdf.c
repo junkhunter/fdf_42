@@ -5,21 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/06 16:39:58 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/11/14 15:53:28 by rlucas-d         ###   ########.fr       */
+/*   Created: 2018/11/14 17:37:09 by rlucas-d          #+#    #+#             */
+/*   Updated: 2018/11/14 18:50:10 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../includes/fdf.h"
 #include <math.h>
-# define DEPARTY 175
-# define DEPARTX DEPARTY + 250
+# define DEPARTY 500
+# define DEPARTX DEPARTY + 500
 
 void		init_point(t_coord *point)
 {
 	point->x = DEPARTX;
 	point->y = DEPARTY;
-	//point->b = 0.74; //45 deg
 }
 
 void      set_point(t_coord *current, t_line *lst_map, t_window window)
@@ -29,14 +27,13 @@ void      set_point(t_coord *current, t_line *lst_map, t_window window)
 	while (i < lst_map->size)
 	{
 		lst_map->point[i].alt = ft_atoi(lst_map->tab[i]);
-		lst_map->point[i].x = current->x - (lst_map->point[i].alt * cos(0.74)) - current->y * sin(1.75);
-		lst_map->point[i].y = current->y - (lst_map->point[i].alt * sin(0.74)) - current->x * cos(1.75);
+		lst_map->point[i].x = current->x - (lst_map->point[i].alt * cos(0.74)) - current->y / 4 * sin(0.74);
+		lst_map->point[i].y = current->y - (lst_map->point[i].alt * sin(0.74)) + current->x / 3 * cos(0.74);
 		if (lst_map->point[i].alt > 0)
 			mlx_pixel_put(window.mlx_ptr, window.win_ptr, lst_map->point[i].x, lst_map->point[i].y, 7667971);
 		else
 			mlx_pixel_put(window.mlx_ptr, window.win_ptr, lst_map->point[i].x, lst_map->point[i].y, 13369103);
-		//mlx_pixel_put(window.mlx_ptr, window.win_ptr, current->x, current->y, 1233151);
-		i++;
+				i++;
 		current->x += ECART;
 	}
 	current->x = DEPARTX;
@@ -70,7 +67,7 @@ t_line    *init_map(t_window window)
 	int			fd;
 	t_line		*tmp;
 
-	fd = open("mars.fdf", O_RDONLY);
+	fd = open("coucou.fdf", O_RDONLY);
 	init_point(&current);
 	lst_map = (t_line*)malloc(sizeof(t_line));
 	begin_lst = lst_map;

@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 10:43:22 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/11/14 15:49:19 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2018/11/14 18:43:56 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <math.h>
@@ -18,7 +18,7 @@ void    draw_sqrt(t_window window, t_line *lst_map)
 	int		i;
 
 	lst_map = init_map(window);
-	printf("coucou");
+
 	while (lst_map)
 	{
 		i = 0;
@@ -57,7 +57,6 @@ void		draw_line(t_coord point1, t_coord point2, t_window window)
 	dy = abs(point2.y-point1.y);
 	xincr = (point1.x < point2.x) ? 1 : -1;
 	yincr = (point1.y < point2.y) ? 1 : -1;
-	printf("alt %d\n", point2.alt);
 	mlx_pixel_put(window.mlx_ptr, window.win_ptr, point1.x, point1.y, 16777215);
 	if(dx > dy)
 	{
