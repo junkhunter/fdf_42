@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 10:43:22 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/11/15 18:58:03 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2018/11/16 15:46:20 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <math.h>
@@ -16,9 +16,7 @@
 void    draw_sqrt(t_window window, t_line *lst_map)
 {
 	int		i;
-
-	lst_map = init_map(window);
-
+	ft_color(lst_map);
 	while (lst_map)
 	{
 		i = 0;
@@ -57,7 +55,7 @@ void		draw_line(t_coord point1, t_coord point2, t_window window)
 	dy = abs(point2.y-point1.y);
 	xincr = (point1.x < point2.x) ? 1 : -1;
 	yincr = (point1.y < point2.y) ? 1 : -1;
-	mlx_pixel_put(window.mlx_ptr, window.win_ptr, point1.x, point1.y, 9832458);
+	mlx_pixel_put(window.mlx_ptr, window.win_ptr, point1.x, point1.y, point1.color);
 	if(dx > dy)
 	{
 		erreur = dx / 2;
@@ -71,7 +69,7 @@ void		draw_line(t_coord point1, t_coord point2, t_window window)
 				erreur -= dx;
 				point1.y += yincr;
 			}
-			mlx_pixel_put(window.mlx_ptr, window.win_ptr, point1.x, point1.y, 9832458 + ((point2.alt == point1.alt) ? (point2.alt * 150) : (e * point2.alt / 1.5 * (15 - ECART))));
+			mlx_pixel_put(window.mlx_ptr, window.win_ptr, point1.x, point1.y, point1.color);
 		}
 	}
 	else
@@ -87,7 +85,7 @@ void		draw_line(t_coord point1, t_coord point2, t_window window)
 				erreur -= dy;
 				point1.x += xincr;
 			}
-			mlx_pixel_put(window.mlx_ptr, window.win_ptr, point1.x, point1.y, 9832458 + ((point2.alt == point1.alt) ? (point2.alt * 150) : (e * (point2.alt / 1.5) * (15 - ECART))));
+			mlx_pixel_put(window.mlx_ptr, window.win_ptr, point1.x, point1.y, point1.color);
 		}
 	}
 }

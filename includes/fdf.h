@@ -6,24 +6,24 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 14:44:48 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/11/15 19:16:59 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2018/11/16 15:46:22 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-# define ECART 2
+# define ECART 4
 # include "../libft/includes/libft.h"
 #include <fcntl.h>
 #include "../GNL/get_next_line.h"
 #include <mlx.h>
-
+# define RED
 typedef struct	s_coord
 {
 	int		x;
 	int		y;
 	int		alt;
-//	double	b;
+	int		color;
 }				t_coord;
 
 typedef struct	s_line
@@ -47,6 +47,7 @@ void		draw_line(t_coord point1, t_coord point2, t_window window);
 void		draw_sqrt(t_window window, t_line *lst_map);
 char		**ft_read_fdf(int fd);
 void		init_point(t_coord *point);
-t_line		*init_map(t_window window);
+t_line		*init_map(t_window window, int fd);
+void   ft_color(t_line *lst_map);
 
 #endif

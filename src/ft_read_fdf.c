@@ -6,13 +6,13 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 17:37:09 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/11/15 19:23:21 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2018/11/16 15:46:18 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/fdf.h"
 #include <math.h>
-# define DEPARTY 100
-# define DEPARTX DEPARTY + 300
+# define DEPARTY 20
+# define DEPARTX DEPARTY + 1
 
 void		init_point(t_coord *point)
 {
@@ -37,15 +37,11 @@ void		set_point(t_coord *current, t_line *lst_map, t_window window)
 
 char		**ft_read_fdf(int fd)
 {
-	int		i;
 	char	*line;
 	char	**tab;
-	char	*str;
-	int		j;
+	int a;
 
-	j = 0;
-	i = 0;
-	if (get_next_line(fd, &line) > 0)
+	if ((a = get_next_line(fd, &line)) > 0) //si erreur de read???
 	{
 		tab = ft_strsplit(line, ' ');
 		free (line);
@@ -54,19 +50,16 @@ char		**ft_read_fdf(int fd)
 	return (0);
 }
 
-t_line		*init_map(t_window window)
+t_line		*init_map(t_window window, int fd)
 {
 	t_line		*lst_map;
 	t_line		*begin_lst;
 	t_coord		current;
-	int			fd;
 	t_line		*tmp;
 
-	fd = open("test/france", O_RDONLY);
 	init_point(&current);
 	lst_map = (t_line*)malloc(sizeof(t_line));
 	begin_lst = lst_map;
-	lst_map->b = 0.74;
 	while ((lst_map->tab = ft_read_fdf(fd)))
 	{
 		lst_map->size = 0;

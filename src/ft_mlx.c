@@ -13,3 +13,16 @@
 #include "../includes/fdf.h"
 #include <mlx.h>
 
+int        deal_mouse(int a, void *param)
+{
+	ft_putnbr(a);
+	return(0);
+}
+
+int        deal_key(int key, void *param)
+{
+	ft_putnbr(key);
+	if (key == 53)
+		exit(0);
+	return (0);
+}

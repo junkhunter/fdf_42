@@ -9,5 +9,34 @@
 /*   Updated: 2018/11/15 17:16:02 by rlucas-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include <math.h>
+#include <mlx.h>
+#include "../includes/fdf.h"
 
+void   ft_color(t_line *lst_map)
+{
+  int i;
+  int base;
+  int a;
 
+  a = 10;
+  base = 5373978;
+  while (lst_map)
+  {
+    i = 0;
+    while (i < lst_map->size)
+    {
+      a = 10;
+      while (lst_map->point[i].alt <= lst_map->point[i + 1].alt) //augmente
+      {
+        lst_map->point[i].color = base *(lst_map->point[i].alt * a * 20);
+        i++;
+        a++;
+      }
+      if (lst_map->point[i].alt == lst_map->point[i + 1].alt) //stable
+        lst_map->point[i].color = base * lst_map->point[i].alt;
+        i++;
+      }
+    lst_map = lst_map->next;
+  }
+}
