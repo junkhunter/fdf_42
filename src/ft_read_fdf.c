@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 #include "../includes/fdf.h"
 #include <math.h>
-# define DEPARTY 20
-# define DEPARTX DEPARTY + 1
+# define DEPARTY 200
+# define DEPARTX DEPARTY + 200
 
 void		init_point(t_coord *point)
 {
