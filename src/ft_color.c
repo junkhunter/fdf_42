@@ -23,20 +23,28 @@ void   ft_color(t_line *lst_map)
   base = 5373978;
   while (lst_map)
   {
-    i = 0;
+    i = 1;
     while (i < lst_map->size)
     {
       a = 10;
       while (lst_map->point[i].alt <= lst_map->point[i + 1].alt) //augmente
       {
-        lst_map->point[i].color = base *(lst_map->point[i].alt * a * 20);
+        lst_map->point[i].color = base + (a * (lst_map->point[i].alt /1.5));
         i++;
-        a++;
+        a += 2;
       }
+      a = 10;
       if (lst_map->point[i].alt == lst_map->point[i + 1].alt) //stable
-        lst_map->point[i].color = base * lst_map->point[i].alt;
+      {
+        lst_map->point[i].color = base + (lst_map->point[i].alt * 150);
         i++;
       }
+      else
+      {
+        lst_map->point[i].color = base;
+        i++;
+      }
+    }
     lst_map = lst_map->next;
   }
 }

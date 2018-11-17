@@ -69,7 +69,7 @@ void		draw_line(t_coord point1, t_coord point2, t_window window)
 				erreur -= dx;
 				point1.y += yincr;
 			}
-			mlx_pixel_put(window.mlx_ptr, window.win_ptr, point1.x, point1.y, point1.color);
+			mlx_pixel_put(window.mlx_ptr, window.win_ptr, point1.x, point1.y, point2.color);
 		}
 	}
 	else
@@ -85,7 +85,7 @@ void		draw_line(t_coord point1, t_coord point2, t_window window)
 				erreur -= dy;
 				point1.x += xincr;
 			}
-			mlx_pixel_put(window.mlx_ptr, window.win_ptr, point1.x, point1.y, point1.color);
+			mlx_pixel_put(window.mlx_ptr, window.win_ptr, point1.x, point1.y, point2.color);
 		}
 	}
 }
