@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 15:44:43 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/11/16 15:44:45 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2018/11/17 19:00:10 by rhunders         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,25 +39,25 @@ int		main(int argc, char **argv)
 	void	*param;
 	t_line	*map;
 	int fd;
-if (argc > 2)
+
+	if (argc > 2)
 	{
 		write (1, "usage <filename>\n", 17);
 		return (0);
 	}
 	window.mlx_ptr = mlx_init();
-	window.win_ptr = mlx_new_window(window.mlx_ptr,2550, 1320, "FDF");
+	window.win_ptr = mlx_new_window(window.mlx_ptr, W_SIZEX, W_SIZEY, "FDF");
 
 	if (!(fd = ft_open(argv)))
 		return (0);
 	if (!(map = init_map(window, fd)))
-		{
-			write(1, "<file error>\n", 13);
-			return (0);
-		}
+	{
+		write(1, "<file error>\n", 13);
+		return (0);
+	}
 	draw_sqrt(window, map);
 	mlx_key_hook(window.win_ptr, deal_key, (void *)0);
 	mlx_loop(window.mlx_ptr);
-
 	/*my_image = mlx_new_image(window.mlx_ptr, 2550, 100);
 	img2 = mlx_new_image(window.mlx_ptr, 100, 100);
 	data = (int *)mlx_get_data_addr(my_image, &bpp, &size, &a);

@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 10:43:22 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/11/17 17:26:25 by rlucas-d         ###   ########.fr       */
+/*   Updated: 2018/11/17 19:41:49 by rhunders         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <math.h>
@@ -24,16 +24,16 @@ void    draw_sqrt(t_window window, t_line *lst_map)
 			if (i < lst_map->size - 1)
 			{
 				if (lst_map->point[i].alt <= lst_map->point[i + 1].alt)
-					draw_line(lst_map->point[i], lst_map->point[i + 1], window);
+					draw_line(lst_map->point[i], lst_map->point[i + 1], window/*, RED*/);
 				else
-					draw_line(lst_map->point[i + 1], lst_map->point[i], window);
+					draw_line(lst_map->point[i + 1], lst_map->point[i], window/*, RED*/);
 			}
 			if (lst_map->next != NULL)
 			{
 				if (lst_map->point[i].alt <= lst_map->next->point[i].alt)
-					draw_line(lst_map->point[i], lst_map->next->point[i], window);
+					draw_line(lst_map->point[i], lst_map->next->point[i], window/*, RED*/);
 				else
-					draw_line(lst_map->next->point[i], lst_map->point[i], window);
+					draw_line(lst_map->next->point[i], lst_map->point[i], window/*, RED*/);
 			}
 			i++;
 		}
@@ -41,50 +41,52 @@ void    draw_sqrt(t_window window, t_line *lst_map)
 	}
 }
 
-void		draw_line(t_coord point1, t_coord point2, t_window window)
+void		init_var_draw(t_var_draw *var, t_coord point1, t_coord point2)
 {
-	int		dx;
-	int		dy;
-	int		xincr;
-	int		yincr;
-	int		erreur;
-	int		e;
+	var->dx = abs(point2.x-point1.x);
+	var->dy = abs(point2.y-point1.y);
+	var->xincr = (point1.x < point2.x) ? 1 : -1;
+	var->yincr = (point1.y < point2.y) ? 1 : -1;
+	var->erreur = (var->dx > var->dy) ? var->dx / 2 : var->dy /2;
+	var->e = 0;	
+}
 
-	dx = abs(point2.x-point1.x);
-	dy = abs(point2.y-point1.y);
-	xincr = (point1.x < point2.x) ? 1 : -1;
-	yincr = (point1.y < point2.y) ? 1 : -1;
-	mlx_pixel_put(window.mlx_ptr, window.win_ptr, point1.x, point1.y, 4259673);
-	if(dx > dy)
+void		draw_line(t_coord point1, t_coord point2, t_window window/*, int color*/)
+{
+	t_var_draw	var;
+
+	init_var_draw(&var, point1, point2);
+	mlx_pixel_put(window.mlx_ptr, window.win_ptr, point1.x, point1.y, RED);
+	if (var.dx > var.dy)
 	{
-		erreur = dx / 2;
-		e = 0;
-		while ((e++) < dx)
+		while ((var.e++) < var.dx)
 		{
-			point1.x += xincr;
-			erreur += dy;
-			if(erreur > dx)
+			point1.x += var.xincr;
+			var.erreur += var.dy;
+			if (var.erreur > var.dx)
 			{
-				erreur -= dx;
-				point1.y += yincr;
+				var.erreur -= var.dx;
+				point1.y += var.yincr;
 			}
-		mlx_pixel_put(window.mlx_ptr, window.win_ptr, point1.x, point1.y, 4259673 + ((point2.alt == point1.alt) ? (point2.alt * 20) : (e * 15 * (point2.alt / 1.5) * (15 - ECART))));
+			if (point2.alt != point1.alt)
+			//	color += point2.alt * 20;
+			//else
+				point1.color += var.e * 15 * (point2.alt / 1.5) * (15 - ECART);
+			mlx_pixel_put(window.mlx_ptr, window.win_ptr, point1.x, point1.y, point1.color);
 		}
 	}
 	else
 	{
-		erreur = dy / 2;
-		e = 0;
-		while (e++ < dy)
+		while (var.e++ < var.dy)
 		{
-			point1.y += yincr;
-			erreur += dx;
-			if(erreur > dy)
+			point1.y += var.yincr;
+			var.erreur += var.dx;
+			if(var.erreur > var.dy)
 			{
-				erreur -= dy;
-				point1.x += xincr;
+				var.erreur -= var.dy;
+				point1.x += var.xincr;
 			}
-			mlx_pixel_put(window.mlx_ptr, window.win_ptr, point1.x, point1.y, 4259673 + ((point2.alt == point1.alt) ? (point2.alt * 20) : (e * 15 *(point2.alt / 1.5) * (15 - ECART))));
+			mlx_pixel_put(window.mlx_ptr, window.win_ptr, point1.x, point1.y, RED + ((point2.alt == point1.alt) ? (point2.alt * 20) : (var.e * 15 *(point2.alt / 1.5) * (15 - ECART))));
 		}
 	}
 }
