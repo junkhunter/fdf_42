@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 14:44:48 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/11/17 19:40:51 by rhunders         ###   ########.fr       */
+/*   Updated: 2018/11/17 22:36:51 by rhunders         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ typedef struct	s_var_draw
 
 int			get_next_line(const int fd, char **line);
 int			deal_key(int key, void *param);
-void		draw_line(t_coord point1, t_coord point2, t_window window/*, int color*/);
+void		draw_line(t_coord point1, t_coord point2, t_window window ,int ecrt);
 void		draw_sqrt(t_window window, t_line *lst_map);
 char		**ft_read_fdf(int fd);
 void		init_point(t_coord *point);

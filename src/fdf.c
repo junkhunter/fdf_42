@@ -6,7 +6,7 @@
 /*   By: rlucas-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 15:44:43 by rlucas-d          #+#    #+#             */
-/*   Updated: 2018/11/17 19:00:10 by rhunders         ###   ########.fr       */
+/*   Updated: 2018/11/17 23:15:14 by rhunders         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int		main(int argc, char **argv)
 	}
 	window.mlx_ptr = mlx_init();
 	window.win_ptr = mlx_new_window(window.mlx_ptr, W_SIZEX, W_SIZEY, "FDF");
-
 	if (!(fd = ft_open(argv)))
 		return (0);
 	if (!(map = init_map(window, fd)))
