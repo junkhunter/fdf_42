@@ -6,80 +6,12 @@
 /*   By: rhunders <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 23:07:37 by rhunders          #+#    #+#             */
-/*   Updated: 2018/11/19 01:12:50 by rhunders         ###   ########.fr       */
+/*   Updated: 2018/11/19 03:51:00 by rhunders         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 #include <math.h>
-# define DEPARTY -400
-# define DEPARTX 700
-
-void		init_point(t_coord *point)
-{
-	point->x =DEPARTX;
-	point->y = DEPARTY;
-}
-
-# define limit 256
-
-void		set_point(t_coord *current, t_line *lst_map, t_line tete)
-{
-	int i;
-
-	i = -1;
-	while (++i < lst_map->size)
-	{
-		lst_map->point[i].alt = ft_atoi(lst_map->tab[i]) * 8;
-		lst_map->point[i].x = (current->x - current->y) * cos(0.5);
-		lst_map->point[i].y = (current->y - (lst_map->point[i].alt * tete.zoom) + current->x) * sin(0.5);
-		if (lst_map->point[i].alt < -limit/* && lst_map->point[i].alt * 0X000004 < 0X0000FF*/)
-		{
-			if (abs(lst_map->point[i].alt + limit) * 0X000001 > 0X000050)
-				lst_map->point[i].color = 
-					abs(lst_map->point[i].alt + limit) * 0X000001;
-			else
-				lst_map->point[i].color = 0X0000D0;
-		}
-		else if (lst_map->point[i].alt < 0)
-		{
-			lst_map->point[i].color = 0X0000FF + 
-				(lst_map->point[i].alt + limit) * (0X000100/* - 0X000001*/);
-		}
-		else if (lst_map->point[i].alt < limit/2)
-		{
-			//lst_map->point[i].color = GREEN;
-			lst_map->point[i].color = lst_map->point[i].color = 0X00FFFF -
-			   	lst_map->point[i].alt * 0X000002;
-		}
-		else if (lst_map->point[i].alt < 256)
-			lst_map->point[i].color = 0X00FF00 + (lst_map->point[i].alt) * (0X010000 - 0X000100);
-		else if (lst_map->point[i].alt < 256 * 2)
-			lst_map->point[i].color = 0XFF0000 + (lst_map->point[i].alt - 256) * 0X000101;
-		else
-			lst_map->point[i].color = 0XFFFFFF;
-		current->x += tete.ecart;
-	}
-	current->x = DEPARTX;
-	current->y += tete.ecart;
-}
-
-void		calcul_point(t_line *lst_map, int ecart, float *zoom)
-{
-	t_coord		current;
-	t_line		tete;
-	
-	lst_map->ecart = ecart;
-	lst_map->zoom = *zoom;
-	tete = *lst_map;
-	init_point(&current);
-	while (lst_map)
-	{
-		lst_map->zoom = *zoom;
-		set_point(&current, lst_map, tete);
-		lst_map = lst_map->next;
-	}
-}
 
 char		**ft_read_fdf(int fd)
 {
@@ -95,8 +27,8 @@ char		**ft_read_fdf(int fd)
 	return (NULL);
 }
 
-# define SIZE_MINX (W_SIZEX)
-# define SIZE_MINY (W_SIZEY)
+# define SIZE_MINX (W_SIZEX - W_SIZEX/100)
+# define SIZE_MINY (W_SIZEY - W_SIZEY/100)
 
 t_line		*init_map(t_window window, int fd, float *zoom)
 {
